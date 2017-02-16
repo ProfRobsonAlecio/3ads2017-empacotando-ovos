@@ -23,11 +23,12 @@ public class Empacotador {
 			ArrayList<String> caixa = new ArrayList<>(); 
 			caixa.add(conteudo);
 			
-			for(int i = 0; i < qtdOvosLinha -1; i++){
-			
+			for(int i = 0; i < qtdeOvosLinha -1; i++){
+				qtdeOvosLinha = ovos.length()/2;
+				conteudo = "0"; 
+				ArrayList<String> caixa02 = new ArrayList<>();
+				
 			}
-			
-			caixa.add("");
 			
 			return caixa;
 		}
