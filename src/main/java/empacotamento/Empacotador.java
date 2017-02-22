@@ -102,9 +102,4 @@ public class Empacotador {
 		return ovosOrganizados;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(separarOvos("0000"));
-	}
-
-
 }
