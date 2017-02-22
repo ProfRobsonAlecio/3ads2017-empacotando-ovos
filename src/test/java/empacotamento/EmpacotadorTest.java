@@ -16,7 +16,7 @@ public class EmpacotadorTest {
 			fail("Deveria ter reclamado");
 		} catch (RuntimeException e) {
 			assertThat(e.getMessage()).isEqualTo(
-					"Deveria ter pelo menos 4 ovos, n�o apenas 1.");
+					"Deveria ter pelo menos 4 ovos, não apenas 1.");
 		}
 	}
 
@@ -27,7 +27,7 @@ public class EmpacotadorTest {
 			fail("Deveria ter reclamado");
 		} catch (RuntimeException e) {
 			assertThat(e.getMessage()).isEqualTo(
-					"Deveria ter pelo menos 4 ovos, n�o apenas 2.");
+					"Deveria ter pelo menos 4 ovos, não apenas 2.");
 		}
 	}
 
@@ -38,13 +38,12 @@ public class EmpacotadorTest {
 			fail("Deveria ter reclamado");
 		} catch (RuntimeException e) {
 			assertThat(e.getMessage()).isEqualTo(
-					"Deveria ter pelo menos 4 ovos, n�o apenas 3.");
+					"Deveria ter pelo menos 4 ovos, não apenas 3.");
 		}
 	}
 
 	@Test
 	public void empacotarCaixaQuatroOvos() {
-
 		List<String> empacotar = Empacotador.empacotar("0000");
 		assertThat(empacotar).hasSize(1);
 
@@ -55,7 +54,6 @@ public class EmpacotadorTest {
 		
 	@Test
 	public void empacotarCaixaSeisOvos() {
-
 		List<String> empacotar = Empacotador.empacotar("000000");
 		assertThat(empacotar).hasSize(1);
 
@@ -66,7 +64,6 @@ public class EmpacotadorTest {
 	
 	@Test
 	public void empacotarCaixaOitoOvos() {
-
 		List<String> empacotar = Empacotador.empacotar("00000000");
 		assertThat(empacotar).hasSize(1);
 
@@ -77,7 +74,6 @@ public class EmpacotadorTest {
 	
 	@Test
 	public void empacotarCaixaDezOvos() {
-
 		List<String> empacotar = Empacotador.empacotar("0000000000");
 		assertThat(empacotar).hasSize(2);
 
@@ -93,8 +89,49 @@ public class EmpacotadorTest {
 				"0 0\n");
 	}
 	
+	@Test
+	public void naoEmpacotarQuantidadeInsuficienteParaEmpacotamentoPerfeito() {
+		try {
+			Empacotador.empacotar("00000");
+			fail("Deveria ter reclamado");
+		} catch (RuntimeException e) {
+			assertThat(e.getMessage()).isEqualTo(
+					"5 ovos não dá empacotamento perfeito.");
+		}
+	}
 	
+	@Test
+	public void empacotarCaixaComDozeOvos() {
+		List<String> empacotar = Empacotador.empacotar("000000000000");
+		assertThat(empacotar).hasSize(3);
+
+		assertThat(empacotar.get(0)).isEqualTo(
+				"0 0 0 0 0 0\n" + 
+				"0 0 0 0 0 0\n");
+
+		assertThat(empacotar.get(1)).isEqualTo(
+				"0 0 0 0\n" + 
+				"0 0 0 0\n" + 
+				"0 0 0 0\n");
+
+		assertThat(empacotar.get(2)).isEqualTo(
+				"0 0 0 0\n" + 
+				"0 0 0 0\n" + 
+				"-----\n" +
+				"0 0\n" +
+				"0 0\n");
+	}
 	
+	@Test
+	public void aceitarApenasOvosDeTipoCorreto() {
+		try {
+			Empacotador.empacotar("ooo0O");
+			fail("Deveria ter reclamado");
+		} catch (RuntimeException e) {
+			assertThat(e.getMessage()).isEqualTo(
+					"O conjunto de ovos \"ooo0O\" contém ovos não suportados.");
+		}
+	}
 		
 
 }
